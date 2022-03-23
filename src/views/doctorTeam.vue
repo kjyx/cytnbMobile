@@ -17,7 +17,7 @@
     </van-tab>
     <van-tab title="专家访谈">
       <ul class="news-list" style="margin-top: 20px">
-        <li v-for="item in zhuanjiaList" :key="item.id">
+        <li v-for="item in zhuanjiaList" :key="item.id" @click="$router.push({path:`/newsInfo?id=${item.id}`})">
           <h3>{{ item.newsTitle }}</h3>
           <h5>{{ item.createTime.slice(0,10) }}</h5>
           <p>{{ item.newsDescribe }}</p>

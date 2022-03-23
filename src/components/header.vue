@@ -120,7 +120,7 @@ export default {
 }
 
 .bd2 {
-  background-color: rgba(159, 207, 255, 1);
+  background-color: #2495ff;
   z-index: 18;
   height: 13.6vw;
   align-self: flex-start;

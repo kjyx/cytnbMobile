@@ -7,7 +7,7 @@
       <h3 class="biaoti">{{ infoList.newsDescribe }}</h3>
       <h3 class="creattime">{{ infoList.createTime.slice(0,10) }}</h3>
       <div v-html="infoList.newsContext"></div>
-      <div @click="$router.back()" style="text-align: center">返回</div>
+      <van-button type="info" @click="$router.back()" style="text-align: center; width: 90vw; margin-top: 30px">返回</van-button>
     </div>
   </div>
 </template>

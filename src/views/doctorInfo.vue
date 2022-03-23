@@ -11,8 +11,7 @@
       <h3>{{doctorList.dockerTitle}}</h3>
       <h4>{{doctorList.positionTitle}}</h4>
     </div>
-    <div class="context">
-      {{doctorList.dockerContext}}
+    <div class="context" v-html="doctorList.dockerContext">
     </div>
   </div>
 </div>
@@ -59,6 +58,7 @@ export default {
     flex-direction: column;
     .top{
       padding: 16.13vw 31.2vw 0;
+      margin-bottom: 10px;
       h3{
         margin-top: 50px;
         margin-bottom: 30px;
@@ -71,7 +71,7 @@ export default {
         height: 24px;
         font-size: 25px;
         color: #848484;
-        line-height: 25px;
+        line-height: 35px;
         margin-bottom:75px;
       }
     }

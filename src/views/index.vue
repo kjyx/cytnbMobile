@@ -3,41 +3,30 @@
     <div class="group1 flex-col">
       <div class="box1 flex-col">
         <van-swipe class="my-swipe img2" :autoplay="3000" indicator-color="white">
-          <van-swipe-item>
+          <van-swipe-item v-for="item in bannerList" :key="item.id">
             <img
               class="img2"
               referrerpolicy="no-referrer"
-              src="https://lanhu.oss-cn-beijing.aliyuncs.com/psr3w3s3obr5syct5yowvpglzgqu7cxfubd3b7702-2d48-4b42-9813-c123d07b1bba"
+              :src="`${$store.state.baseUrl}${item.image}`"
              />
           </van-swipe-item>
-          <van-swipe-item>
-            <img
-                class="img2"
-                referrerpolicy="no-referrer"
-                src="../assets/banner1.jpg"
-            />
-          </van-swipe-item>
-          <van-swipe-item>
-            <img
-                class="img2"
-                referrerpolicy="no-referrer"
-                src="../assets/banner2.jpg"
-            />
-          </van-swipe-item>
         </van-swipe>
+
         <div class="bd3 flex-row">
-          <img
-              @click="$router.push({path:'/jiuyizhinan',query:{id:3}})"
-              class="pic2"
-              referrerpolicy="no-referrer"
-              src="../assets/01.png"
-          />
-          <img
-              @click="$router.push('/doctorteam')"
-              class="pic2"
-              referrerpolicy="no-referrer"
-              src="../assets/02.png"
-          />
+          <div @click="$router.push({path:'/jiuyizhinan',query:{id:3}})">
+            <img
+                class="pic2"
+                referrerpolicy="no-referrer"
+                src="../assets/01.png"
+            />
+          </div>
+          <div @click="$router.push({path:'/doctorteam'})">
+            <img
+                class="pic2"
+                referrerpolicy="no-referrer"
+                src="../assets/02.png"
+            />
+          </div>
           <img
               @click="$router.push({path:'/jiuyizhinan',query:{id:2}})"
               class="img3"
@@ -63,11 +52,11 @@
               src="../assets/06.png"
           />
         </div>
-        <div class="bd4 flex-col">
+        <div class="bd4 flex-col"  @click="$router.push({path:'/aboutme',query:{id:0}})">
           <div class="outer1 flex-col">
             <div class="outer2 flex-row">
               <span class="info2">医院概况</span>
-              <div class="box2 flex-col"><span class="info3"  @click="$router.push({path:'/aboutme',query:{id:0}})">查看更多</span></div>
+              <div class="box2 flex-col"><span class="info3">查看更多</span></div>
             </div>
             <img
                 class="pic6"
@@ -78,16 +67,32 @@
             <span class="infoBox1">
               河南科技职业大学附属第五医院河南科技职业大学附属第
               <br />
+              <br/>
               五医院河南科技职业大学附属第五医院
             </span>
           </div>
         </div>
-        <span class="info4">领导团队</span>
+        <img
+            class="pic8"
+            referrerpolicy="no-referrer"
+            src="https://lanhu.oss-cn-beijing.aliyuncs.com/psef4yhx55t34rr5i4c21wze40o0tal21ot22898bf3-7a55-4f7f-a2eb-f713ee9f806f"
+            @click="$router.push({path:'/departmentlist'})"
+        />
+        <div class="bd8">
+          <div class="newsTitle">
+            <div v-for="item in newsTitleList" :key="item.id" :class="{'newsactive':item.id===newsCurrent}" @click="newsChange(item.id)">{{ item.title }}</div>
+          </div>
+          <ul class="news-list">
+            <li v-for="item in newsList" :key="item.id" @click="toNewsInfo(item.id)">{{ item.newsTitle }}</li>
+          </ul>
+        </div>
+
+        <span class="info4">专家团队</span>
         <div class="box">
-          <van-swipe class="my-swipe bd5" ref="doctorlist" indicator-color="white" :loop="false">
+          <van-swipe class="my-swipe bd5" ref="doctorlist"  :loop="false">
             <van-swipe-item v-for="item in doctorList" :key="item.id">
               <div class="doctor-box" >
-                <img :src="`${baseUrl}${item.dockerFengmian}`" alt="" @click="$router.push({name:'doctorInfo',params:{id:item.id}})">
+                <img :src="`${$store.state.baseUrl}${item.dockerFengmian}`" alt="" @click="$router.push({name:'doctorInfo',params:{id:item.id}})">
                 <div>
                   <h3>{{item.dockerTitle}}</h3>
                   <p>{{item.positionTitle}}</p>
@@ -99,8 +104,8 @@
           <div class="right" @click="$refs.doctorlist.next()">&gt;</div>
         </div>
         <div class="bd6 flex-row">
-          <span class="word5" @click="$router.push('/doctorteam')">特色科室</span>
-          <div class="box3 flex-col"><span class="word6">查看更多</span></div>
+          <span class="word5" >特色科室</span>
+          <div class="box3 flex-col" @click="$router.push({path:'/departmentlist'})"><span class="word6">查看更多</span></div>
         </div>
         <div class="bd7 flex-col">
           <div class="layer1 flex-col">
@@ -115,22 +120,7 @@
             </ul>
           </div>
         </div>
-        <img
-            class="pic8"
-            referrerpolicy="no-referrer"
-            src="https://lanhu.oss-cn-beijing.aliyuncs.com/psef4yhx55t34rr5i4c21wze40o0tal21ot22898bf3-7a55-4f7f-a2eb-f713ee9f806f"
-        />
-        <div class="bd8">
-          <div class="newsTitle">
-            <div v-for="item in newsTitleList"
-                 :key="item.id"
-                 :class="{'newsactive':item.id===newsCurrent}"
-                 @click="newsChange(item.id)">{{ item.title }}</div>
-          </div>
-          <ul class="news-list">
-            <li v-for="item in newsList" :key="item.id" @click="toNewsInfo(item.id)">{{ item.newsTitle }}</li>
-          </ul>
-        </div>
+
       </div>
     </div>
   </div>
@@ -139,6 +129,7 @@
 <script>
 import {getDepartmentList, getDoctorList, getNewsList} from '@/api/api'
 import {mapState} from "vuex";
+import {reqBanner} from "../../../chengyue/src/api/api";
 export default {
   data() {
     return {
@@ -147,6 +138,7 @@ export default {
       current:1,
       newsCurrent:1,
       departmentList:[],
+      bannerList:[],
       newsTitleList:[
         {
           title:'医院要闻',
@@ -232,6 +224,7 @@ export default {
     this.loadFuzhu()
     this.loadNewsList(1)
     this.departmentList = this.linchuangList
+    this.getBannerList()
   },
   methods: {
     toNewsInfo(id){
@@ -250,7 +243,12 @@ export default {
       this.total = res.total
     },
     async loadDoctorList() {
-      const res = await getDoctorList()
+      let query = {
+        pageNum:1,
+        pageSize:10
+      }
+      const res = await getDoctorList(query)
+      console.log(res)
       this.doctorList = res.rows
       // console.log(res.rows)
     },
@@ -311,6 +309,18 @@ export default {
           id:item.id
         })
       })
+    },
+
+    // 获取banner数据
+    async getBannerList(){
+      let query = {
+        pageNum:1,
+        pageSize:10
+      }
+      let result = await reqBanner(query)
+      if(result.code === 200){
+        this.bannerList = result.rows
+      }
     }
   },
   computed:{
@@ -495,6 +505,8 @@ export default {
           width: 27.6vw;
           height: 33.47vw;
           margin: 0 4.53vw 3.2vw 0;
+          pointer-events: none;
+          vertical-align: sub;
         }
         .img3 {
           z-index: 24;
@@ -558,8 +570,7 @@ export default {
             .box2 {
               z-index: 33;
               height: 6vw;
-              background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/psdocu0duofzj1d6b8qpabv71nbne4q9bee640382de-eae7-4f40-8e6b-1cef67f8c962)
-              100% no-repeat;
+              background-color: #2495ff;
               width: 26vw;
               justify-content: flex-start;
               padding-top: 1.34vw;
@@ -597,6 +608,7 @@ export default {
             align-self: flex-start;
             margin-top: 4.14vw;
             display: block;
+            letter-spacing: 0.5px;
           }
           .infoBox1 {
             z-index: 49;
@@ -611,6 +623,7 @@ export default {
             align-self: flex-start;
             display: block;
             margin: 3.2vw 0 0 0.26vw;
+            letter-spacing: .5px;
           }
         }
       }
@@ -664,7 +677,7 @@ export default {
           width: 60px;
           height: 60px;
           border-radius: 50%;
-          background-color: #1674B3;
+          background-color: #2495ff;
           color: white;
           line-height: 60px;
           text-align: center;
@@ -672,7 +685,7 @@ export default {
         .right {
           line-height: 60px;
           color: white;
-          background-color: #1674B3;
+          background-color: #2495ff;
           width: 60px;
           height: 60px;
           border-radius: 50%;
@@ -704,8 +717,7 @@ export default {
         .box3 {
           z-index: 35;
           height: 6vw;
-          background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/psgeaat4nzx6spjzd2xgbwtz9z3frwxkm4be0dc7a-4c05-453b-8b34-45fb7b001644)
-          100% no-repeat;
+          background-color: #2495ff;
           width: 26vw;
           justify-content: flex-start;
           padding-top: 1.34vw;
@@ -794,7 +806,7 @@ export default {
       .bd8 {
         z-index: 44;
         width: 99.34vw;
-        height: 77.87vw;
+        height: 65.87vw;
         background-size: 100vw 77.86vw;
         .newsTitle{
           display: flex;
@@ -873,4 +885,7 @@ export default {
   }
 }
 
+/deep/ .van-swipe__indicators{
+  display: none;
+}
 </style>

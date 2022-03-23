@@ -173,7 +173,7 @@ export default {
         font-weight: bold;
       }
       .swiper{
-        height: 480px;
+        //height: 480px;
       }
       .swiper-slide {
         padding: 0 50px;

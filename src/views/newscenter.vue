@@ -7,8 +7,8 @@
     <van-tab v-for="item in newsNameList" :title="item.title" :key="item.id" >
     </van-tab>
   </van-tabs>
-  <ul class="news-list" style="margin-top: 20px" @click="$router.push('newsinfo?id=8')">
-    <li v-for="item in newsList" :key="item.id">
+  <ul class="news-list" style="margin-top: 20px" >
+    <li v-for="item in newsList" :key="item.id" @click="$router.push({path:`/newsInfo?id=${item.id}`})">
       <h3>{{ item.newsTitle }}</h3>
       <h5>{{ item.createTime.slice(0,10) }}</h5>
       <p>{{ item.newsDescribe }}</p>
@@ -62,9 +62,8 @@ export default {
     }
   },
   methods:{
-    changenews(id,title) {
+    changenews(id) {
       this.type = id
-      console.log(title,title)
       this.loadnewsList(id)
     },
     newsChange(pageNum) {

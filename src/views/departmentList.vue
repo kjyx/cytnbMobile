@@ -127,11 +127,11 @@ export default {
             text-align: center;
             line-height: 88px;
             font-size: 30px;
-
             width: 274px;
             height: 88px;
-            background: #DFDFDF;
+            background: #0080ff;
             opacity: 1;
+            color: white;
           }
         }
       }

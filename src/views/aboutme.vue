@@ -5,14 +5,11 @@
   </div>
   <van-tabs color="#0080ff" :active="active">
     <van-tab title="医院介绍">
-      <p style="text-align: center">河南科技职业大学附属第五医院</p>
-      <div>
-        （周口承悦糖尿病医院）
-        我院是经上级主管部门批准成立的集糖尿病预防、治疗、科研、培训于一体的国家二级专科医院。周口市 城镇职工、城乡居民医保定点直补单位、省内及跨省异地就医住院费用直接结算定点医疗机构。
-
-        我院聘请省、市知名专家教授，组建强大专家团队，技术力量雄厚，是以内分泌糖尿病为核心科室，开展足病科、眼科、心脑血管科、呼吸内科、甲状腺科、中医科、骨科、骨骼矫形科、疼痛康复科、儿童生长发育科、不育不孕科、营养科以及健康体检中心等特色科室的“大专科、小综合”医院。
-
-        我院规模宏大，环境优美，设施设备先进齐全，拥有美国GE CT、核磁共振、数字化DR、德国罗氏电化 学发光仪、日本希森美康血液分析仪、美国感觉神经定量测量仪、美国VISTA周围血管诊断系统、美力敦胰岛素泵、韩国双能X线骨密度测定仪、挪威奥菲全自动特种蛋白分析系统、无散瞳眼底照相仪、眼底激光治疗仪等高端诊疗设备和专业体检设备。
+      <div v-for="item in aboutMe" :key="item.id">
+        <p style="text-align: center; font-weight: 800; font-size: 18px;padding-bottom: 10px">{{item.title}}</p>
+        <p style="text-align: center;padding-bottom: 10px">（周口承悦糖尿病医院）</p>
+        <div style="line-height: 23px; text-indent: 2em" v-html="item.conter">
+        </div>
       </div>
     </van-tab>
     <van-tab title="医院发展">
@@ -34,6 +31,15 @@
           <p>{{ item.honorTitle }}</p>
         </li>
       </ul>
+      <van-pagination
+          mode="simple"
+          v-model="yrym.pageNum"
+          :total-items="total1"
+          :items-per-page="yrym.pageSize"
+          @change="loadrongyuList"
+      >
+
+      </van-pagination>
     </van-tab>
     <van-tab title="荣誉资质">
       <ul class="yuanrongList">
@@ -42,6 +48,14 @@
           <p>{{ item.honorTitle }}</p>
         </li>
       </ul>
+      <van-pagination
+          mode="simple"
+          v-model="ryzz.pageNum"
+          :total-items="total"
+          :items-per-page="ryzz.pageSize"
+          @change="loadRyzzList"
+      >
+      </van-pagination>
     </van-tab>
   </van-tabs>
 </div>
@@ -49,6 +63,7 @@
 
 <script>
 import {getNewsList,getRyzzList} from "@/api/api";
+import {reqAboutMe} from "../../../chengyue/src/api/api";
 
 export default {
   name: "aboutme",
@@ -79,7 +94,20 @@ export default {
       ],
       fazhanList:[],
       rongyuzizhiList:[],
-      yuanrongyuanmaoList:[]
+      yuanrongyuanmaoList:[],
+      ryzz:{
+        pageNum:1,
+        pageSize:10,
+        honorType:1
+      },
+      total:'',
+      yrym:{
+        pageNum:1,
+        pageSize:10,
+        honorType:2
+      },
+      total1:'',
+      aboutMe:[]
     }
   },
   methods:{
@@ -93,34 +121,41 @@ export default {
         this.fazhanList = res.rows
       this.total = res.total
     },
+
+
     async loadRyzzList(pagenum = 1) {
-      let query = {
-        pageNum:pagenum,
-        pageSize:10,
-        honorType:1
-      }
-      const res = await getRyzzList(query)
+      this.ryzz.pageNum = pagenum
+      const res = await getRyzzList(this.ryzz)
       console.log(res)
       this.rongyuzizhiList = res.rows
       this.total = res.total
     },
+
+
+
     async loadrongyuList(pagenum = 1) {
-      let query = {
-        pageNum:pagenum,
-        pageSize:10,
-        honorType:2
-      }
-      const res = await getRyzzList(query)
-      console.log(res)
+      this.yrym.pageNum = pagenum
+      const res = await getRyzzList(this.yrym)
       this.yuanrongyuanmaoList = res.rows
-      this.total = res.total
+      this.total1 = res.total
     },
+
+    async getAboutMe(){
+      let query = {
+        pageNum:1,
+        pageSize:10
+      }
+      let result = await reqAboutMe(query)
+      console.log(result)
+      this.aboutMe = result.rows
+    }
   },
   mounted() {
     this.loadNewsList(10)
     this.loadRyzzList()
     this.loadrongyuList()
-    console.log(this.rongyuzizhiList,this.yuanrongyuanmaoList)
+    this.getAboutMe()
+    // console.log(this.rongyuzizhiList,this.yuanrongyuanmaoList)
   }
 }
 </script>
