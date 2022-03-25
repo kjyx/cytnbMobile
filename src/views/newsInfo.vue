@@ -6,7 +6,7 @@
     <div>
       <h3 class="biaoti">{{ infoList.newsDescribe }}</h3>
       <h3 class="creattime">{{ infoList.createTime.slice(0,10) }}</h3>
-      <div v-html="infoList.newsContext"></div>
+      <div class="content" v-html="infoList.newsContext"></div>
       <van-button type="info" @click="$router.back()" style="text-align: center; width: 90vw; margin-top: 30px">返回</van-button>
     </div>
   </div>
@@ -54,5 +54,14 @@ export default {
   font-size: 16px;
   margin-bottom: 15px;
   color: #848484;
+}
+.content{
+ /deep/ p{
+    img{
+      transform: translateX(-50%);
+      width: 600px !important;
+      margin: 40px 0 40px 50%;
+    }
+  }
 }
 </style>

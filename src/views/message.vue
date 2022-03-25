@@ -1,17 +1,17 @@
 <template>
-<div>
-  <h1>联系我们</h1>
-  <div id="container"></div>
-</div>
+  <div>
+    <h1>联系我们</h1>
+    <div id="container"></div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "message",
-  methods:{
-    init(){
+  methods: {
+    init() {
       var map = new BMapGL.Map('container');
-      var point = new BMapGL.Point(114.662337,33.61048);
+      var point = new BMapGL.Point(114.662337, 33.61048);
       map.centerAndZoom(point, 17);
 
       var marker = new BMapGL.Marker(point);
@@ -24,7 +24,7 @@ export default {
       var opts = {
         width: 200,
         height: 100,
-        title: '周口承悦糖尿病医院'
+        title: '河南科技职业大学附属第五医院-周口承悦糖尿病医院'
       };
       var infoWindow = new BMapGL.InfoWindow('地址：八一路与黄河路交汇处', opts);
 // 点标记添加点击事件
@@ -45,10 +45,19 @@ export default {
   height: 610px;
   margin: 30px 0;
 }
+
 h1 {
   text-align: center;
   margin: 0px;
   line-height: 100px;
   border-bottom: 1px solid #1674B3;
+}
+/deep/.BMap_bubble_title{
+  white-space: normal!important;
+  overflow: inherit!important;
+  padding-right: 40px;
+}
+/deep/.BMap_bubble_content{
+  line-height: 220px!important;
 }
 </style>

@@ -11,8 +11,71 @@
              />
           </van-swipe-item>
         </van-swipe>
+        <div class="bd4 flex-col"  @click="$router.push({path:'/aboutme',query:{id:0}})">
+          <div class="outer1 flex-col">
+            <div class="outer2 flex-row">
+              <span class="info2">医院概况</span>
+              <div class="box2 flex-col"><span class="info3">查看更多</span></div>
+            </div>
+            <img
+                class="pic6"
+                referrerpolicy="no-referrer"
+                src="https://lanhu.oss-cn-beijing.aliyuncs.com/pst8elqusxc0rv6lp1lt7chs5xk0ekl0wd8bd884b5b-61f1-4c5f-a315-f3eed986601b"
+            />
+            <span class="txt1">河南科技职业大学附属第五医院</span>
+            <span class="infoBox1">
+              河南科技职业大学附属第五医院河南科技职业大学附属第
+              <br />
+              <br/>
+              五医院河南科技职业大学附属第五医院
+            </span>
+          </div>
+        </div>
+        <div class="bd8">
+          <div class="newsTitle">
+            <div v-for="item in newsTitleList" :key="item.id" :class="{'newsactive':item.id===newsCurrent}" @click="newsChange(item.id)">{{ item.title }}</div>
+          </div>
+          <ul class="news-list">
+            <li v-for="item in newsList" :key="item.id" @click="toNewsInfo(item.id)">{{ item.newsTitle }}</li>
+          </ul>
+        </div>
+        <div class="bd6 flex-row">
+          <span class="word5" >特色科室</span>
+          <div class="box3 flex-col" @click="$router.push({path:'/departmentlist'})"><span class="word6">查看更多</span></div>
+        </div>
+        <div class="bd7 flex-col">
+          <div class="layer1 flex-col">
+            <div class="word7">
+              <p :class="{ 'active' : item.id===current }" v-for="item in departmentCurrentList" :key="item.id" @click="switchDer(item.id)">{{item.title}}</p>
+            </div>
+            <div class="main3 flex-col"></div>
+            <ul class="departmentList">
+              <li v-for="item in departmentList" :key="item.id" @click="$router.push({path:'/departmentinfo',query:{name:item.title}})">
+                {{ item.title }}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div style="margin:25px 0">
+          <span class="info4">专家团队</span>
+          <div class="box">
+            <van-swipe class="my-swipe bd5" ref="doctorlist"  :loop="false">
+              <van-swipe-item v-for="item in doctorList" :key="item.id">
+                <div class="doctor-box" >
+                  <img :src="`${$store.state.baseUrl}${item.dockerFengmian}`" alt="" @click="$router.push({name:'doctorInfo',params:{id:item.id}})">
+                  <div>
+                    <h3>{{item.dockerTitle}}</h3>
+                    <p>{{item.positionTitle}}</p>
+                  </div>
+                </div>
+              </van-swipe-item>
+            </van-swipe>
+            <div class="left" @click="$refs.doctorlist.prev()">&lt;</div>
+            <div class="right" @click="$refs.doctorlist.next()">&gt;</div>
+          </div>
+        </div>
 
-        <div class="bd3 flex-row">
+        <div class="bd3 flex-row" style="margin-bottom: 30px">
           <div @click="$router.push({path:'/jiuyizhinan',query:{id:3}})">
             <img
                 class="pic2"
@@ -52,75 +115,6 @@
               src="../assets/06.png"
           />
         </div>
-        <div class="bd4 flex-col"  @click="$router.push({path:'/aboutme',query:{id:0}})">
-          <div class="outer1 flex-col">
-            <div class="outer2 flex-row">
-              <span class="info2">医院概况</span>
-              <div class="box2 flex-col"><span class="info3">查看更多</span></div>
-            </div>
-            <img
-                class="pic6"
-                referrerpolicy="no-referrer"
-                src="https://lanhu.oss-cn-beijing.aliyuncs.com/pst8elqusxc0rv6lp1lt7chs5xk0ekl0wd8bd884b5b-61f1-4c5f-a315-f3eed986601b"
-            />
-            <span class="txt1">河南科技职业大学附属第五医院</span>
-            <span class="infoBox1">
-              河南科技职业大学附属第五医院河南科技职业大学附属第
-              <br />
-              <br/>
-              五医院河南科技职业大学附属第五医院
-            </span>
-          </div>
-        </div>
-        <img
-            class="pic8"
-            referrerpolicy="no-referrer"
-            src="https://lanhu.oss-cn-beijing.aliyuncs.com/psef4yhx55t34rr5i4c21wze40o0tal21ot22898bf3-7a55-4f7f-a2eb-f713ee9f806f"
-            @click="$router.push({path:'/departmentlist'})"
-        />
-        <div class="bd8">
-          <div class="newsTitle">
-            <div v-for="item in newsTitleList" :key="item.id" :class="{'newsactive':item.id===newsCurrent}" @click="newsChange(item.id)">{{ item.title }}</div>
-          </div>
-          <ul class="news-list">
-            <li v-for="item in newsList" :key="item.id" @click="toNewsInfo(item.id)">{{ item.newsTitle }}</li>
-          </ul>
-        </div>
-
-        <span class="info4">专家团队</span>
-        <div class="box">
-          <van-swipe class="my-swipe bd5" ref="doctorlist"  :loop="false">
-            <van-swipe-item v-for="item in doctorList" :key="item.id">
-              <div class="doctor-box" >
-                <img :src="`${$store.state.baseUrl}${item.dockerFengmian}`" alt="" @click="$router.push({name:'doctorInfo',params:{id:item.id}})">
-                <div>
-                  <h3>{{item.dockerTitle}}</h3>
-                  <p>{{item.positionTitle}}</p>
-                </div>
-              </div>
-            </van-swipe-item>
-          </van-swipe>
-          <div class="left" @click="$refs.doctorlist.prev()">&lt;</div>
-          <div class="right" @click="$refs.doctorlist.next()">&gt;</div>
-        </div>
-        <div class="bd6 flex-row">
-          <span class="word5" >特色科室</span>
-          <div class="box3 flex-col" @click="$router.push({path:'/departmentlist'})"><span class="word6">查看更多</span></div>
-        </div>
-        <div class="bd7 flex-col">
-          <div class="layer1 flex-col">
-            <div class="word7">
-              <p :class="{ 'active' : item.id===current }" v-for="item in departmentCurrentList" :key="item.id" @click="switchDer(item.id)">{{item.title}}</p>
-            </div>
-            <div class="main3 flex-col"></div>
-            <ul class="departmentList">
-               <li v-for="item in departmentList" :key="item.id" @click="$router.push({path:'/departmentinfo',query:{name:item.title}})">
-                 {{ item.title }}
-               </li>
-            </ul>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>
@@ -539,7 +533,6 @@ export default {
         background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/psev0435le9autmh9202jjfqawkbovdrqda7689583-bd60-437c-8ce1-71ea18885dde)
         100% no-repeat;
         align-self: flex-start;
-        margin-top: 7.07vw;
         width: 99.87vw;
         justify-content: flex-end;
         padding-bottom: 4.14vw;
@@ -639,7 +632,7 @@ export default {
         line-height: 4.8vw;
         align-self: flex-start;
         display: block;
-        margin: 8vw 0 4vw 6vw;
+        margin: 5vw 0 8vw 6vw;
       }
       .box{
         position: relative;
@@ -738,9 +731,9 @@ export default {
       }
       .bd7 {
         z-index: 3;
-        height: 129.07vw;
-        background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/psx0cmcd8vtuan9if7tq0tnybhgt60vhpg1e2937e2-8106-4ac0-a835-1cf07316cdab) -3.34vw -2.8vw
-        no-repeat;
+        //height: 129.07vw;
+        //background: url(https://lanhu.oss-cn-beijing.aliyuncs.com/psx0cmcd8vtuan9if7tq0tnybhgt60vhpg1e2937e2-8106-4ac0-a835-1cf07316cdab) -3.34vw -2.8vw
+        //no-repeat;
         background-size: 100.66vw 136.86vw;
         align-self: flex-start;
         width: 93.87vw;
@@ -751,7 +744,7 @@ export default {
         .layer1 {
           z-index: auto;
           width: 93.6vw;
-          height: 89.07vw;
+          //height: 89.07vw;
           .word7 {
             display: flex;
             justify-content: space-between;
@@ -806,7 +799,7 @@ export default {
       .bd8 {
         z-index: 44;
         width: 99.34vw;
-        height: 65.87vw;
+        //height: 65.87vw;
         background-size: 100vw 77.86vw;
         .newsTitle{
           display: flex;
@@ -868,7 +861,7 @@ export default {
     color: white;
   }
   .news-list {
-    height: 600px;
+    //height: 600px;
     padding:0 30px;
     li{
       line-height: 70px;

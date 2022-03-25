@@ -11,7 +11,7 @@
         <div v-html="departmentInfo.departmentContext"></div>
       </div>
     </div>
-    <div class="doctor-list">
+    <div class="doctor-list" v-show="this.doctorList.length > 0">
       <h1>相关专家</h1>
       <div class="swiper-container swiper" ref="swiper">
           <div class="swiper-wrapper">
@@ -33,7 +33,7 @@
           <div class="swiper-button-next"></div>
         </div>
     </div>
-    <div class="doctor-list">
+    <div class="doctor-list" v-show="this.kangfuList.length >0">
       <h1>康复案例</h1>
       <div class="swiper-container swiper" ref="swiperTwo">
         <div class="swiper-wrapper">
@@ -111,10 +111,10 @@ export default {
     },
     async loadInfo() {
       const res = await  getDepartmentInfo(this.$route.query.name)
+      console.log(res)
       this.departmentInfo = res.data
       this.doctorList = res.dockerInfos
       this.kangfuList = res.caseInfos
-      console.log(res)
     },
   },
   mounted() {
