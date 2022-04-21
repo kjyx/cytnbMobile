@@ -7,7 +7,7 @@
             <img
               class="img2"
               referrerpolicy="no-referrer"
-              :src="`${$store.state.baseUrl}${item.image}`"
+              :src="item.banner"
              />
           </van-swipe-item>
         </van-swipe>
@@ -62,7 +62,7 @@
             <van-swipe class="my-swipe bd5" ref="doctorlist"  :loop="false">
               <van-swipe-item v-for="item in doctorList" :key="item.id">
                 <div class="doctor-box" >
-                  <img :src="`${$store.state.baseUrl}${item.dockerFengmian}`" alt="" @click="$router.push({name:'doctorInfo',params:{id:item.id}})">
+                  <img :src="item.dockerFengMian" alt="" @click="$router.push({name:'doctorInfo',params:{id:item.id}})">
                   <div>
                     <h3>{{item.dockerTitle}}</h3>
                     <p>{{item.positionTitle}}</p>
@@ -121,9 +121,8 @@
 </template>
 
 <script>
-import {getDepartmentList, getDoctorList, getNewsList} from '@/api/api'
+import {getDepartmentList, getDoctorList, getNewsList,reqBanner} from '@/api/api'
 import {mapState} from "vuex";
-import {reqBanner} from "../../../chengyue/src/api/api";
 export default {
   data() {
     return {
@@ -233,8 +232,8 @@ export default {
       query.pageNum = pageNum
       query.pageSize = pageSize
       const res = await getNewsList(query)
-      this.newsList = res.rows
-      this.total = res.total
+      this.newsList = res.data.records
+      this.total = res.data.total
     },
     async loadDoctorList() {
       let query = {
@@ -243,7 +242,7 @@ export default {
       }
       const res = await getDoctorList(query)
       console.log(res)
-      this.doctorList = res.rows
+      this.doctorList = res.data.records
       // console.log(res.rows)
     },
     switchDer(id){
@@ -269,7 +268,7 @@ export default {
         departmentType:1
       }
       const res = await getDepartmentList(query)
-      res.rows.forEach((item) => {
+      res.data.records.forEach((item) => {
         this.linchuangList.push({
           title:item.departmentName,
           id:item.id
@@ -283,7 +282,7 @@ export default {
         departmentType:2
       }
       const res = await getDepartmentList(query)
-      res.rows.forEach((item) => {
+      res.data.records.forEach((item) => {
         this.yijiyiyueList.push({
           title:item.departmentName,
           id:item.id
@@ -297,7 +296,7 @@ export default {
         departmentType:3
       }
       const res = await getDepartmentList(query)
-      res.rows.forEach((item) => {
+      res.data.records.forEach((item) => {
         this.fuzhukeshiList.push({
           title:item.departmentName,
           id:item.id
@@ -309,11 +308,12 @@ export default {
     async getBannerList(){
       let query = {
         pageNum:1,
-        pageSize:10
+        pageSize:10,
+        bannerType:2
       }
       let result = await reqBanner(query)
       if(result.code === 200){
-        this.bannerList = result.rows
+        this.bannerList = result.data.records
       }
     }
   },

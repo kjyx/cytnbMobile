@@ -7,7 +7,7 @@
     <van-tab title="专家介绍">
       <ul class="doctor-list">
         <li v-for="item in doctorList" :key="item.id">
-          <img :src="`${$store.state.baseUrl}${item.dockerFengmian}`" alt="" @click="$router.push({name:'doctorInfo',params:{id:item.id}})">
+          <img :src="item.dockerFengMian" alt="" @click="$router.push({name:'doctorInfo',params:{id:item.id}})">
           <h3>{{ item.dockerTitle }}</h3>
           <h3>{{ item.direction }}</h3>
           <h3>{{ item.positionTitle }}</h3>
@@ -74,7 +74,7 @@ export default {
       query.pageNum = pageNum
       query.pageSize = pageSize
       const res = await getNewsList(query)
-      this.zhuanjiaList = res.rows
+      this.zhuanjiaList = res.data.records
       this.total = res.totalPage
     },
     async loadjiatingList(type=null,pageNum=1,pageSize=5) {
@@ -84,7 +84,7 @@ export default {
       query.pageNum = pageNum
       query.pageSize = pageSize
       const res = await getNewsList(query)
-      this.jiatingList = res.rows
+      this.jiatingList = res.data.records
       this.zhuanjiaNum = res.totalPage
     },
     async loadDoctorList(pageNum=1) {
@@ -95,7 +95,7 @@ export default {
       const res = await getDoctorList(query)
       this.pageCount = res.totalPage
       this.docPagenum = pageNum
-      this.doctorList = res.rows
+      this.doctorList = res.data.records
     }
   },
   mounted() {

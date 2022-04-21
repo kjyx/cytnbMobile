@@ -4,7 +4,7 @@ import {Toast} from "vant";
 // 全局loding
 let loadingInstance = null
 const config ={
-    baseURL:'http://182.160.8.76:9087',
+    baseURL:'http://182.160.8.76:9087/erupt-api',
     timeout:5000
 }
 const request = axios.create(config)

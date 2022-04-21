@@ -54,7 +54,7 @@ export default {
       query.pageNum = pageNum
       query.pageSize = pageSize
       const res = await getNewsList(query)
-      this.zhuanjialist = res.rows
+      this.zhuanjialist = res.data.records
       this.total = res.totalPage
     },
   },

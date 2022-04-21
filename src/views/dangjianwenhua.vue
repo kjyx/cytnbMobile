@@ -58,8 +58,8 @@ export default {
       query.pageNum = pageNum
       query.pageSize = pageSize
       const res = await getNewsList(query)
-      this.newsList = res.rows
-      this.newsNum = res.totalPage
+      this.newsList = res.data.records
+      this.newsNum = res.data.totalPage
     },
     newsClick(id) {
       this.type  = id

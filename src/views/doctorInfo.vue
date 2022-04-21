@@ -6,7 +6,7 @@
       <img
           class="img"
           referrerpolicy="no-referrer"
-          :src="`${baseUrl}${doctorList.dockerFengmian}`"
+          :src="doctorList.dockerFengMian"
       />
       <h3>{{doctorList.dockerTitle}}</h3>
       <h4>{{doctorList.positionTitle}}</h4>

@@ -35,10 +35,6 @@ export default {
           id: 16,
         },
         {
-          title: '疫情报道',
-          id: 17,
-        },
-        {
           title: '防疫知识',
           id: 18,
         },
@@ -72,7 +68,7 @@ export default {
       query.pageNum = pageNum
       query.pageSize = pageSize
       const res = await getNewsList(query)
-      this.newsList = res.rows
+      this.newsList = res.data.records
       this.newsNum = res.totalPage
     },
     newsClick(id) {

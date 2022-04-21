@@ -8,7 +8,7 @@
       <div v-for="item in aboutMe" :key="item.id">
         <p style="text-align: center; font-weight: 800; font-size: 18px;padding-bottom: 10px">{{item.title}}</p>
         <p style="text-align: center;padding-bottom: 10px">（周口承悦糖尿病医院）</p>
-        <div style="line-height: 23px; text-indent: 2em" v-html="item.conter">
+        <div style="line-height: 23px; text-indent: 2em" v-html="item.msInfo">
         </div>
       </div>
     </van-tab>
@@ -27,7 +27,7 @@
     <van-tab title="院容院貌">
       <ul class="yuanrongList">
         <li v-for="item in yuanrongyuanmaoList" :key="item.id">
-          <img :src="`${$store.state.baseUrl}${item.honorFengmian}`" alt="">
+          <img :src="item.honorFengMian" alt="">
           <p>{{ item.honorTitle }}</p>
         </li>
       </ul>
@@ -44,7 +44,7 @@
     <van-tab title="荣誉资质">
       <ul class="yuanrongList">
         <li v-for="item in rongyuzizhiList" :key="item.id">
-          <img :src="`${$store.state.baseUrl}${item.honorFengmian}`" alt="">
+          <img :src="item.honorFengMian" alt="">
           <p>{{ item.honorTitle }}</p>
         </li>
       </ul>
@@ -118,8 +118,8 @@ export default {
       query.pageNum = pageNum
       query.pageSize = pageSize
       const res = await getNewsList(query)
-        this.fazhanList = res.rows
-      this.total = res.total
+        this.fazhanList = res.data.records
+      this.total = res.data.total
     },
 
 
@@ -127,8 +127,8 @@ export default {
       this.ryzz.pageNum = pagenum
       const res = await getRyzzList(this.ryzz)
       console.log(res)
-      this.rongyuzizhiList = res.rows
-      this.total = res.total
+      this.rongyuzizhiList = res.data.records
+      this.total = res.data.total
     },
 
 
@@ -136,8 +136,8 @@ export default {
     async loadrongyuList(pagenum = 1) {
       this.yrym.pageNum = pagenum
       const res = await getRyzzList(this.yrym)
-      this.yuanrongyuanmaoList = res.rows
-      this.total1 = res.total
+      this.yuanrongyuanmaoList = res.data.records
+      this.total1 = res.data.total
     },
 
     async getAboutMe(){
@@ -147,7 +147,7 @@ export default {
       }
       let result = await reqAboutMe(query)
       console.log(result)
-      this.aboutMe = result.rows
+      this.aboutMe = result.data.records
     }
   },
   mounted() {

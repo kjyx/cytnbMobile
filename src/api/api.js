@@ -1,9 +1,9 @@
-import request from "@/utils/request";
+import request from "@/utils/requests";
 // 获取科室列表
 export const getDepartmentList = (data)=> request({
     url:'/department/departmentInfo/list',
-    method:'get',
-    params:data
+    method:'post',
+    data
     // data:qs.stringify(data)
 })
 // 获取科室详情
@@ -14,8 +14,8 @@ export const getDepartmentInfo = (data)=> request({
 // 获取新闻列表
 export const getNewsList = (data)=> request({
     url:`/news/newsInfo/list`,
-    method:'get',
-    params:data
+    method:'post',
+    data
 })
 // 获取新闻的详情
 export const getNewsInfo = (data)=> request({
@@ -25,8 +25,8 @@ export const getNewsInfo = (data)=> request({
 // 获取所有医生列表
 export const getDoctorList = (params)=> request({
     url:`/docker/dockerInfo/list`,
-    method:'get',
-    params
+    method:'post',
+    data:params
 })
 // 获取医生详细信息
 export const getDoctorInfo = (params)=> request({
@@ -40,28 +40,28 @@ export const sendMessage = (data)=> request({
     data
 })
 // 首页康复案例
-export const getKangFuList = (params) => request({
+export const getKangFuList = (data) => request({
     url:`/caseManage/caseinfo/list`,
-    method:'get',
-    params
+    method:'post',
+    data
 })
 // 荣誉资质
-export const getRyzzList = (params) => request({
+export const getRyzzList = (data) => request({
     url:`/honor/honorInfo/list`,
-    method:'get',
-    params
+    method:'post',
+    data
 })
 
 // 首页banner图
 export const reqBanner = (query) => request({
     url:'/system/banner/list',
-    method:'get',
+    method:'post',
     data:query
 })
 
 // 医院概括文章
 export const reqAboutMe = (query) =>request({
     url:'/system/Msinfo/list',
-    method:'get',
+    method:'post',
     dataL:query
 })
