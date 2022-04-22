@@ -10,11 +10,11 @@
     <ul class="news-list" style="margin-top: 20px">
       <li v-for="item in newsList" :key="item.id" @click="$router.push({path:'/newsinfo',query:{id:item.id}})">
         <h3>{{ item.newsTitle }}</h3>
-        <h5>{{ item.createTime.slice(0, 10) }}</h5>
+        <h5>{{ item.createTime | formatTimer }}</h5>
         <p>{{ item.newsDescribe }}</p>
       </li>
     </ul>
-    <van-pagination v-model="docPagenum" @change="newsChange" mode="simple" :page-count="newsNum"/>
+    <van-pagination v-if="newsNum > 5" v-model="docPagenum" @change="newsChange" mode="simple" :page-count="page" :total-items="newsNum"/>
   </div>
 </template>
 
@@ -23,6 +23,17 @@ import {getNewsList} from "@/api/api";
 
 export default {
   name: "kepubingli",
+  filters: {
+    formatTimer: (value) => {
+      let date = new Date(value);
+      let y = date.getFullYear();
+      let MM = date.getMonth() + 1;
+      MM = MM < 10 ? "0" + MM : MM;
+      let d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      return y + "-" + MM + '-' + d;
+    }
+  },
   data() {
     return {
       newsNameList: [
@@ -47,7 +58,8 @@ export default {
       newsNum: null,
       type: null,
       docPagenum: null,
-      active: null
+      active: null,
+      page:null
     }
   },
   mounted() {
@@ -62,14 +74,15 @@ export default {
       let query = {}
       if (type === null) {
         query.newsType = 15
-      }else {
+      } else {
         query.newsType = type
       }
       query.pageNum = pageNum
       query.pageSize = pageSize
       const res = await getNewsList(query)
       this.newsList = res.data.records
-      this.newsNum = res.totalPage
+      this.newsNum = res.data.total
+      this.page = res.data.pages
     },
     newsClick(id) {
       this.type = id
