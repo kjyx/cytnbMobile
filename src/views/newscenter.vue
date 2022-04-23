@@ -86,7 +86,7 @@ export default {
       query.pageSize = pageSize
       const res = await getNewsList(query)
       this.newsList = res.data.records
-      this.newsNum = res.totalPage
+      this.newsNum = res.data.pages
     },
   },
   mounted() {

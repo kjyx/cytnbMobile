@@ -73,7 +73,7 @@ export default {
     async loadnewsList(type = null, pageNum = 1, pageSize = 5) {
       let query = {}
       if (type === null) {
-        query.newsType = 15
+        query.newsType = 16
       } else {
         query.newsType = type
       }

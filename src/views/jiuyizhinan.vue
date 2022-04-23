@@ -15,17 +15,17 @@
       </ul>
     </van-tab>
     <van-tab title="诊室分布">
-      <img src="@/assets/zhenshifenbu1.jpg" alt="" class="img1">
-      <img src="@/assets/zhenshifenbu2.jpg" alt="" class="img1">
+      <img src="http://image.zqszys.com/cyy/zhenshifenbu1%281%29.jpg" alt="" class="img1">
+      <img src="http://image.zqszys.com/cyy/zhenshifenbu2%281%29.jpg" alt="" class="img1">
     </van-tab>
     <van-tab title="就诊流程">
-      <img src="@/assets/jiuzhenliucheng.jpg" alt="" class="img1">
+      <img src="http://image.zqszys.com/cyy/jiuzhenliucheng%281%29.jpg" alt="" class="img1">
     </van-tab>
     <van-tab title="医保报销">
-      <img src="@/assets/yibaozhengce.png" alt="" class="img1">
+      <img src="http://image.zqszys.com/cyy/yibaozhengce%281%29.jpg" alt="" class="img1">
     </van-tab>
     <van-tab title="体检须知">
-      <img src="@/assets/tijianxuzhi.png" alt="" class="img1">
+      <img src="http://image.zqszys.com/cyy/tijianxuzhi%281%29.jpg" alt="" class="img1">
     </van-tab>
   </van-tabs>
 </div>

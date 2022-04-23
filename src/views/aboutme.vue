@@ -26,7 +26,7 @@
     </van-tab>
     <van-tab title="院容院貌">
       <ul class="yuanrongList">
-        <li v-for="item in yuanrongyuanmaoList" :key="item.id">
+        <li v-for="item in yuanrongyuanmaoList" :key="item.id" @click="handleYuanRong(item.honorFengMian)">
           <img :src="item.honorFengMian" alt="">
           <p>{{ item.honorTitle }}</p>
         </li>
@@ -43,7 +43,7 @@
     </van-tab>
     <van-tab title="荣誉资质">
       <ul class="yuanrongList">
-        <li v-for="item in rongyuzizhiList" :key="item.id">
+        <li v-for="item in rongyuzizhiList" :key="item.id" @click="handleYuanRong(item.honorFengMian)">
           <img :src="item.honorFengMian" alt="">
           <p>{{ item.honorTitle }}</p>
         </li>
@@ -64,6 +64,7 @@
 <script>
 import {getNewsList,getRyzzList} from "@/api/api";
 import {reqAboutMe} from "../../../chengyue/src/api/api";
+import {ImagePreview} from "vant";
 
 export default {
   name: "aboutme",
@@ -98,13 +99,13 @@ export default {
       ryzz:{
         pageNum:1,
         pageSize:10,
-        honorType:1
+        honorType:2
       },
       total:'',
       yrym:{
         pageNum:1,
         pageSize:10,
-        honorType:2
+        honorType:1
       },
       total1:'',
       aboutMe:[]
@@ -131,8 +132,6 @@ export default {
       this.total = res.data.total
     },
 
-
-
     async loadrongyuList(pagenum = 1) {
       this.yrym.pageNum = pagenum
       const res = await getRyzzList(this.yrym)
@@ -148,6 +147,10 @@ export default {
       let result = await reqAboutMe(query)
       console.log(result)
       this.aboutMe = result.data.records
+    },
+
+    handleYuanRong(image){
+      ImagePreview([image]);
     }
   },
   mounted() {
